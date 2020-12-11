@@ -35,6 +35,15 @@ $(document).ready(function () {
   const purple = "#800080";
 
   //aggiungiamo dei colori usando una funzione
+    icons.forEach(icon => {
+      if(icon.family === "animals"){
+        icon.color = blue;
+      }else if(icon.family === "fruits & vegetables"){
+        icon.color = orange;
+      }else{
+        icon.color = purple;
+      }
+    });
 
 
   //inseriamo le icone colorate nel container
@@ -42,9 +51,9 @@ $(document).ready(function () {
   icons.forEach(icon => {
     const markup = `
     <div>
-       <i class="${icon.prefix} ${icon.type}"></i>
+       <i class="${icon.prefix} ${icon.type}" style="color:${icon.color}"></i>
        <div class="title">
-       ${icon.name.toUpperCase()}
+        ${icon.name.toUpperCase()}
        </div>
     </div>
     `;
