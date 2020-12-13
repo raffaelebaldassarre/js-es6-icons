@@ -35,7 +35,7 @@ $(document).ready(function () {
   const purple = "#800080";
 
   //aggiungiamo dei colori usando una funzione
-    icons.forEach(icon => {
+ /*   icons.forEach(icon => {
       if(icon.family === "animals"){
         icon.color = blue;
       }else if(icon.family === "fruits & vegetables"){
@@ -44,11 +44,25 @@ $(document).ready(function () {
         icon.color = purple;
       }
     });
+*/
 
+  const newIcons = icons.map(icon => {
+    if(icon.family === "animals"){
+      var color = blue;
+    }else if(icon.family === "fruits & vegetables"){
+      var color = orange;
+    }else{
+      var color = purple;
+    }
+
+    let newObject = {...icon,color : color};
+
+    return newObject
+  })
 
   //inseriamo le icone colorate nel container
   const container = document.getElementById("icons");
-  icons.forEach(icon => {
+  newIcons.forEach(icon => {
     const markup = `
     <div>
        <i class="${icon.prefix} ${icon.type}" style="color:${icon.color}"></i>
