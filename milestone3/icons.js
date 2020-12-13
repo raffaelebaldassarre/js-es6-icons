@@ -70,15 +70,15 @@ const icons = [
   });
 
   //estrapoliamo i tipi di icone
+  //aggiungiamo i tipi alla select
+  //al change mostriamo solo le icone filtrate
+  //mostriamo come passare un parametro a change e contemporaneamente destrutturiamo
 
   const select = $("#type");
   select.append('<option value="animals">Animals</option>');
   select.append('<option value="fruits & vegetables">Fruits & Vegetables</option>');
   select.append('<option value="users & people">User & People</option>');
 
-  //aggiungiamo i tipi alla select
-  //al change mostriamo solo le icone filtrate
-  //mostriamo come passare un parametro a change e contemporaneamente destrutturiamo
   
   const elSelect = document.getElementById("type") 
   elSelect.addEventListener("change", event =>{
@@ -104,12 +104,23 @@ const icons = [
 
     });
 
+    if (scelta == ""){
+      newIcons.forEach(icon => {
+        const markup = `
+        <div>
+           <i class="${icon.prefix} ${icon.type}" style="color:${icon.color}"></i>
+           <div class="title">
+            ${icon.name.toUpperCase()}
+           </div>
+        </div>
+        `;
+        container.insertAdjacentHTML('beforeend', markup);
+    
+      });
+    }
+
     //console.log(arrayFilter);
   });
-
-
-
-
 
 /* ---- FUNCTIONS ----*/
 
