@@ -37,19 +37,26 @@ const icons = [
  
 
   //aggiungiamo dei colori come da milestone 2
-  icons.forEach(icon => {
-    if(icon.family === "animals"){
-      icon.color = blue;
+  const newIcons = icons.map(icon => {
+
+    let color = (icon.family === "animals") ?  "blue" : (icon.family === "fruits & vegetables") ? "orange" : "purple";
+
+    /*if(icon.family === "animals"){
+      var color = blue;
     }else if(icon.family === "fruits & vegetables"){
-      icon.color = orange;
+      var color = orange;
     }else{
-      icon.color = purple;
-    }
-  });
+      var color = purple;
+    }*/
+
+    let newObject = {...icon,color : color};
+
+    return newObject
+  })
 
   //inseriamo le icone nel container come da milestone 2
   const container = document.getElementById("icons");
-  icons.forEach(icon => {
+  newIcons.forEach(icon => {
     const markup = `
     <div>
        <i class="${icon.prefix} ${icon.type}" style="color:${icon.color}"></i>
@@ -64,10 +71,43 @@ const icons = [
 
   //estrapoliamo i tipi di icone
 
-  //aggiungiamo i tipi alla select
+  const select = $("#type");
+  select.append('<option value="animals">Animals</option>');
+  select.append('<option value="fruits & vegetables">Fruits & Vegetables</option>');
+  select.append('<option value="users & people">User & People</option>');
 
+  //aggiungiamo i tipi alla select
   //al change mostriamo solo le icone filtrate
   //mostriamo come passare un parametro a change e contemporaneamente destrutturiamo
+  
+  const elSelect = document.getElementById("type") 
+  elSelect.addEventListener("change", event =>{
+
+    const scelta = $('#type option:selected').val();
+    // const scelta = elSelect.options[elSelect.selectIndex].value;
+    //console.log(scelta);
+
+    const arrayFilter = newIcons.filter(icon => icon.family == scelta);
+    
+    container.innerHTML= "";
+  
+    arrayFilter.forEach(icon => {
+      const markup = `
+      <div>
+        <i class="${icon.prefix} ${icon.type}" style="color:${icon.color}"></i>
+        <div class="title">
+          ${icon.name.toUpperCase()}
+        </div>
+      </div>
+      `;
+      container.insertAdjacentHTML('beforeend', markup);
+
+    });
+
+    //console.log(arrayFilter);
+  });
+
+
 
 
 
